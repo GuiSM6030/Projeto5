@@ -3,6 +3,15 @@
 #include <string.h> // Inclui a biblioteca padrão de manipulação de strings em C, como strcpy() e strcmp().
 #include "agenda.h" // Inclui o arquivo de cabeçalho agenda.h, que contém definições de estruturas e protótipos de funções.
 
+int telefoneExiste(const Contato lista[], int totalContatos, const char *telefone) {
+    for (int i = 0; i < totalContatos; i++) {
+        if (strcmp(lista[i].telefone, telefone) == 0) {
+            return 1; // Telefone já existe
+        }
+    }
+    return 0; // Telefone não existe
+}
+
 void adicionarContato(Contato lista[], int *totalContatos) {
     if (*totalContatos < MAX_CONTACTS) {
         Contato novoContato;
