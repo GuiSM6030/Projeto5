@@ -50,12 +50,12 @@ void adicionarContato(Contato lista[], int *totalContatos) {
 }
 
 void listarContatos(Contato lista[], int totalContatos) {
-    if (totalContatos == 0) { // Verifica se não há contatos na lista.
-        printf("A lista de contatos está vazia!\n"); // Exibe uma mensagem indicando que a lista de contatos está vazia.
+    if (totalContatos == 0) {
+        printf("A lista de contatos está vazia!\n");
     } else {
         printf("Lista de contatos:\n");
-        for (int i = 0; i < totalContatos; i++) { // Percorre a lista de contatos e exibe as informações de cada contato.
-            printf("%d: %s %s, Email: %s, Telefone: %s\n", i+1, lista[i].nome, lista[i].sobrenome, lista[i].email, lista[i].telefone);
+        for (int i = 0; i < totalContatos; i++) {
+            printf("%d: %s %s, Email: %s, Telefone: %s, Lista: %s\n", i+1, lista[i].nome, lista[i].sobrenome, lista[i].email, lista[i].telefone, lista[i].tipo == PESSOAL ? "Pessoal" : "Trabalho");
         }
     }
 }
