@@ -4,21 +4,48 @@
 #include "agenda.h" // Inclui o arquivo de cabeçalho agenda.h, que contém definições de estruturas e protótipos de funções.
 
 void adicionarContato(Contato lista[], int *totalContatos) {
-    if (*totalContatos < MAX_CONTACTS) { // Verifica se o número total de contatos é menor que o máximo permitido.
-        Contato novoContato; // Declara uma variável do tipo Contato para armazenar um novo contato.
+    if (*totalContatos < MAX_CONTACTS) {
+        Contato novoContato;
         printf("Digite o nome: ");
-        scanf("%s", novoContato.nome); // Solicita ao usuário que digite o nome do novo contato e armazena na variável novoContato.nome.
+        scanf("%s", novoContato.nome);
         printf("Digite o sobrenome: ");
-        scanf("%s", novoContato.sobrenome); // Solicita ao usuário que digite o sobrenome do novo contato e armazena na variável novoContato.sobrenome.
-        printf("Digite o email: ");
-        scanf("%s", novoContato.email); // Solicita ao usuário que digite o email do novo contato e armazena na variável novoContato.email.
-        printf("Digite o telefone: ");
-        scanf("%s", novoContato.telefone); // Solicita ao usuário que digite o telefone do novo contato e armazena na variável novoContato.telefone.
-        lista[*totalContatos] = novoContato; // Adiciona o novo contato à lista de contatos na posição indicada por totalContatos.
-        (*totalContatos)++; // Incrementa o número total de contatos.
-        printf("Contato adicionado com sucesso!\n"); // Exibe uma mensagem indicando que o contato foi adicionado com sucesso.
+        scanf("%s", novoContato.sobrenome);
+
+        do {
+            printf("Digite o email: ");
+            scanf("%s", novoContato.email);
+            if (!validarEmail(novoContato.email)) {
+                printf("Email inválido! O email deve conter '@' e '.com'.\n");
+            }
+        } while (!validarEmail(novoContato.email));
+
+        do {
+            printf("Digite o telefone: ");
+            scanf("%s", novoContato.telefone);
+            if (telefoneExiste(lista, *totalContatos, novoContato.telefone)) {
+                printf("Telefone já existe! Por favor, digite um telefone único.\n");
+            }
+        } while (telefoneExiste(lista, *totalContatos, novoContato.telefone));
+
+        printf("Escolha o tipo de lista:\n");
+        printf("1. Pessoal\n");
+        printf("2. Trabalho\n");
+        int escolha;
+        scanf("%d", &escolha);
+        if (escolha == 1)
+            novoContato.tipo = PESSOAL;
+        else if (escolha == 2)
+            novoContato.tipo = TRABALHO;
+        else {
+            printf("Opção inválida! Usando lista pessoal por padrão.\n");
+            novoContato.tipo = PESSOAL;
+        }
+
+        lista[*totalContatos] = novoContato;
+        (*totalContatos)++;
+        printf("Contato adicionado com sucesso!\n");
     } else {
-        printf("A lista de contatos está cheia!\n"); // Exibe uma mensagem indicando que a lista de contatos está cheia.
+        printf("A lista de contatos está cheia!\n");
     }
 }
 
