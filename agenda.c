@@ -144,28 +144,30 @@ void alterarContato(Contato lista[], int totalContatos) {
 
 
 void deletarContato(Contato lista[], int *totalContatos) {
-    if (*totalContatos == 0) { // Verifica se não há contatos na lista.
-        printf("A lista de contatos está vazia!\n"); // Exibe uma mensagem indicando que a lista de contatos está vazia.
-        return; // Retorna da função, pois não há contatos para deletar.
+    if (*totalContatos == 0) {
+        printf("A lista de contatos está vazia!\n");
+        return;
     }
 
-    char telefone[15]; // Declara uma variável para armazenar o número de telefone do contato a ser deletado.
+    char telefone[15];
     printf("Digite o número de telefone do contato que deseja deletar: ");
-    scanf("%s", telefone); // Solicita ao usuário que digite o número de telefone do contato a ser deletado e armazena na variável telefone.
+    scanf("%s", telefone);
 
-    int i;
-    for (i = 0; i < *totalContatos; i++) { // Percorre a lista de contatos para encontrar o contato com o número de telefone especificado.
-        if (strcmp(lista[i].telefone, telefone) == 0) { // Compara o número de telefone do contato atual com o número de telefone especificado.
-            for (int j = i; j < *totalContatos - 1; j++) { // Move os contatos para frente na lista para preencher o espaço do contato deletado.
+    for (int i = 0; i < *totalContatos; i++) {
+        if (strcmp(lista[i].telefone, telefone) == 0) {
+            for (int j = i; j < *totalContatos - 1; j++) {
                 lista[j] = lista[j + 1];
             }
-            (*totalContatos)--; // Decrementa o número total de contatos.
-            printf("Contato deletado com sucesso!\n"); // Exibe uma mensagem indicando que o contato foi deletado com sucesso.
-            return; // Retorna da função após encontrar e deletar o contato.
+            (*totalContatos)--;
+            printf("Contato deletado com sucesso!\n");
+            return;
         }
     }
-    printf("Contato não encontrado!\n"); // Exibe uma mensagem indicando que o contato não foi encontrado na lista.
+    printf("Contato não encontrado!\n");
 }
+
+
+
 
 void carregarAgenda(Contato lista[], int *totalContatos) {
     FILE *arquivo; // Declara um ponteiro para um arquivo.
