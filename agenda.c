@@ -79,6 +79,19 @@ void listarContatos(Contato lista[], int totalContatos) {
         }
     }
 }
+void listarContatosPorTipo(Contato lista[], int totalContatos, TipoLista tipoLista) {
+    int encontrados = 0;
+    printf("Lista de contatos %s:\n", tipoLista == PESSOAL ? "pessoais" : "de trabalho");
+    for (int i = 0; i < totalContatos; i++) {
+        if (lista[i].tipo == tipoLista) {
+            printf("%d: %s %s, Email: %s, Telefone: %s\n", encontrados+1, lista[i].nome, lista[i].sobrenome, lista[i].email, lista[i].telefone);
+            encontrados++;
+        }
+    }
+    if (encontrados == 0) {
+        printf("Nenhum contato %s encontrado.\n", tipoLista == PESSOAL ? "pessoal" : "de trabalho");
+    }
+}
 
 void deletarContato(Contato lista[], int *totalContatos) {
     if (*totalContatos == 0) { // Verifica se não há contatos na lista.
