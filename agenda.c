@@ -12,6 +12,17 @@ int telefoneExiste(const Contato lista[], int totalContatos, const char *telefon
     return 0; // Telefone não existe
 }
 
+int validarEmail(const char *email) {
+    const char *arroba = strchr(email, '@');
+    const char *pontoCom = strstr(email, ".com");
+
+    // Verifica se "@" está presente e ".com" está presente e vem após "@"
+    if (arroba != NULL && pontoCom != NULL && pontoCom > arroba) {
+        return 1; // Email válido
+    }
+    return 0; // Email inválido
+}
+
 void adicionarContato(Contato lista[], int *totalContatos) {
     if (*totalContatos < MAX_CONTACTS) {
         Contato novoContato;
