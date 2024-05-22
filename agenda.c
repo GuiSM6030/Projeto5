@@ -79,6 +79,8 @@ void listarContatos(Contato lista[], int totalContatos) {
         }
     }
 }
+
+
 void listarContatosPorTipo(Contato lista[], int totalContatos, TipoLista tipoLista) {
     int encontrados = 0;
     printf("Lista de contatos %s:\n", tipoLista == PESSOAL ? "pessoais" : "de trabalho");
@@ -92,6 +94,54 @@ void listarContatosPorTipo(Contato lista[], int totalContatos, TipoLista tipoLis
         printf("Nenhum contato %s encontrado.\n", tipoLista == PESSOAL ? "pessoal" : "de trabalho");
     }
 }
+
+
+
+void alterarContato(Contato lista[], int totalContatos) {
+    if (totalContatos == 0) {
+        printf("A lista de contatos está vazia!\n");
+        return;
+    }
+
+    char telefone[15];
+    printf("Digite o número de telefone do contato que deseja alterar: ");
+    scanf("%s", telefone);
+
+    for (int i = 0; i < totalContatos; i++) {
+        if (strcmp(lista[i].telefone, telefone) == 0) {
+            printf("Digite o novo nome: ");
+            scanf("%s", lista[i].nome);
+            printf("Digite o novo sobrenome: ");
+            scanf("%s", lista[i].sobrenome);
+
+            do {
+                printf("Digite o novo email: ");
+                scanf("%s", lista[i].email);
+                if (!validarEmail(lista[i].email)) {
+                    printf("Email inválido! O email deve conter '@' e '.com'.\n");
+                }
+            } while (!validarEmail(lista[i].email));
+
+            char novoTelefone[15];
+            do {
+                printf("Digite o novo telefone: ");
+                scanf("%s", novoTelefone);
+                if (telefoneExiste(lista, totalContatos, novoTelefone) && strcmp(novoTelefone, telefone) != 0) {
+                    printf("Telefone já existe! Por favor, digite um telefone único.\n");
+                }
+            } while (telefoneExiste(lista, totalContatos, novoTelefone) && strcmp(novoTelefone, telefone) != 0);
+
+            strcpy(lista[i].telefone, novoTelefone);
+
+            printf("Contato alterado com sucesso!\n");
+            return;
+        }
+    }
+    printf("Contato não encontrado!\n");
+}
+
+
+
 
 void deletarContato(Contato lista[], int *totalContatos) {
     if (*totalContatos == 0) { // Verifica se não há contatos na lista.
